@@ -46,16 +46,23 @@ function buildNav(sections){
             myListitem.classList.add('active-li');
         }
         myListitem.setAttribute('id',`li${i}`);
-        myListitem.innerHTML = `Section ${i+1}`;
+        // add a to the li item with href attribute
+        const a = document.createElement('a');
+        a.textContent = `Section ${i+1}`;
+        a.setAttribute('href',`#section${i+1}`)
+        myListitem.appendChild(a);
         myNavbar.appendChild(myListitem);
+        
     }
     //add eventlistener to my navbar 
     myNavbar.addEventListener('click',function(evt){
-
-        //select section that with attribue 
-        const elem = document.querySelector(`[data-nav="${evt.target.textContent}"]`);
-        elem.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
-    })
+        evt.preventDefault();
+        if(evt.target.tagName==="LI" || evt.target.tagName === "A"){
+            const elem = document.querySelector(`[data-nav="${evt.target.textContent}"]`);
+            elem.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
+        }
+        
+    });
 }
 
 // function to check if section in the viewport or not  
